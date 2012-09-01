@@ -42,7 +42,7 @@ io.sockets.on('connection', function(socket) {
         socket.emit('pushfilter', myList);
     });
     if(myList.length!=0) {
-        twit.stream('user',{track:myList}, function(stream) {
+        twit.stream('statuses/filter',{track:myList}, function(stream) {
             stream.on('data', function (tweet) {
   	    	    socket.emit('message', JSON.stringify(tweet));
             });
