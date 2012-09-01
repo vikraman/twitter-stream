@@ -1,8 +1,10 @@
 sys     = require('util');
 express = require('express');
 twitter = require('ntwitter');
+http    = require('http');
 
-app = express.createServer();
+app = express();
+server = http.createServer(app);
 app.configure(function(){
   app.use(express.static(__dirname + '/public'));
 });
@@ -10,10 +12,10 @@ app.configure(function(){
 app.get('/', function(req, res, next){
   res.render('/public/index.html');
 });
-app.listen(8081);
+server.listen(8081);
 console.log('Server running at http://localhost:8081/');
 
-var io  = require('socket.io').listen(app);
+var io  = require('socket.io').listen(server);
 io.set('log level', 1);
 
 myList = [];
